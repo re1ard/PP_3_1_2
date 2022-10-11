@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Users</title>
+</head>
+<body>
+<h1>Все пользователи:</h1>
+<table border="1">
+  <tr>
+    <th>Логин</th>
+    <th>Роль</th>
+    <th>Операции</th>
+  </tr>
+  <tr th:each="user : ${users}"
+      class="row" th:classappend="${user.toString()} ? 'odd-row' : 'even-row'">
+    <td th:utext="${user.getUsername()}">Username</td>
+    <td th:utext="${user.getRolesInfo()}">Roles</td>
+    <td><a class="btn" th:href="@{/admin/deleteuser/{id}(id = ${user.getId()})}">Удалить</a>
+      <a class="btn" th:href="@{/admin/updateuser/{id}(id = ${user.getId()})}">Редактировать</a>
+      <a class="btn"  th:href="@{/admin/showuser/{id}(id = ${user.getId()})}">Данные</a>
+  </tr>
+</table>
+<br>
+<a href="/admin/adduser" class="btn">Добавить пользователя</a>
+</body>
+<br>
+<br>
+<a th:href="@{/logout}" class="btnExit">Выйти</a>
+</html>
