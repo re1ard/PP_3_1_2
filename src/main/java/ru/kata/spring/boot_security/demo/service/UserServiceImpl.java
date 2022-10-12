@@ -59,8 +59,9 @@ public class UserServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User %s not found", username));
         }
+        //не получается вернуть  просто user, возникает ошибка "User account is locked"
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+               user.getPassword(), user.getRoles());
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {

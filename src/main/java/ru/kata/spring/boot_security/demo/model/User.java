@@ -88,7 +88,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     public String getPassword() {
@@ -108,7 +108,7 @@ public class User implements UserDetails {
     }
 
     public String getRolesInfo() {
-        return roles.stream().map(Role::getName).map(r -> r.substring(5)).collect(Collectors.toList()).toString();
+        return roles.stream().map(Role::getName).map(r -> r.substring(5)).collect(Collectors.joining(" "));
     }
 
     public Collection<Role> getRoles() {
