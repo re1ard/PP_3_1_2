@@ -14,6 +14,8 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +38,25 @@ public class UserServiceImpl implements UserDetailsService {
     }
     @Transactional
     public void save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //Role user fix
+        if(user.getId() == 0) {
+            Role user_role = roleRepository.getById(2L);
+            Collection<Role> user_roles = user.getRoles();
+            if (user_roles == null) {
+                user_roles = new ArrayList<>();
+            }
+            user_roles.add(user_role);
+            user.setRoles(user_roles);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            if (user.getPassword() != "") {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            } else {
+                user.setPassword(userRepository.getById(user.getId()).getPassword());
+            }
+            user.setRoles(userRepository.getById(user.getId()).getRoles());
+        }
+
         userRepository.save(user);
     }
     @Transactional
@@ -60,8 +80,10 @@ public class UserServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User %s not found", username));
         }
         //не получается вернуть  просто user, возникает ошибка "User account is locked"
+        //upd 2, не получается, теперь просто ничего не происходит после логина
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                user.getPassword(), user.getRoles());
+        //return user;
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {

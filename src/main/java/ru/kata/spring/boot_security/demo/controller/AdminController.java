@@ -53,6 +53,7 @@ public class AdminController {
     @RequestMapping("/updateuser/{id}")
     public String userInfo(Model model, @PathVariable("id") long id) {
         User currentUser = userService.getUser(id);
+        currentUser.setPassword("");
         model.addAttribute("newUser", currentUser);
         return "editor_user";
     }

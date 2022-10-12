@@ -64,22 +64,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setUsername(String username) {
@@ -108,7 +108,11 @@ public class User implements UserDetails {
     }
 
     public String getRolesInfo() {
-        return roles.stream().map(Role::getName).map(r -> r.substring(5)).collect(Collectors.joining(" "));
+        if(roles != null) {
+            return roles.stream().map(Role::getName).map(r -> r.substring(5)).collect(Collectors.joining(" "));
+        } else {
+            return "null";
+        }
     }
 
     public Collection<Role> getRoles() {
