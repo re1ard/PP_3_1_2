@@ -24,6 +24,15 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "first_name")
+    private String first_name;
+
+    @Column(name = "last_name")
+    private String last_name;
+
+    @Column(name = "age")
+    private byte age;
+
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -48,6 +57,19 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.roles = roles;
+        this.age = 0;
+        this.first_name = "FirstName";
+        this.last_name = "LastName";
+    }
+
+    public User(String username, String password, String email, Collection<Role> roles, String first_name, String last_name, byte age){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.age = age;
+        this.first_name = first_name;
+        this.last_name = last_name;
     }
 
     public long getId() {
@@ -121,5 +143,29 @@ public class User implements UserDetails {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public byte getAge() {
+        return age;
+    }
+
+    public void setAge(byte age) {
+        this.age = age;
     }
 }

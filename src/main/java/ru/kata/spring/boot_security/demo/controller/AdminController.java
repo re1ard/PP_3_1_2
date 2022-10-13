@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -45,7 +47,15 @@ public class AdminController {
     }
     //удалить пользователя по ид
     @RequestMapping("/deleteuser/{id}")
-    public String deleteUser(@PathVariable("id") long id) {
+    public String deleteUser(@PathVariable("id") long id, Principal principal) {
+        User user = userService.getUser(id);
+        if (user == null) {
+            return "redirect:/admin/";
+        }
+        if(principal.getName() == user.getUsername()) {
+            return "redirect:/admin/";
+        }
+
         userService.deleteUser(id);
         return "redirect:/admin/";
     }
