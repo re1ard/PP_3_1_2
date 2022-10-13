@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService)
                 .passwordEncoder(passwordEncoder());
         auth.authenticationProvider(daoAuthenticationProvider());
+        userService.check_first_start();
     }
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {

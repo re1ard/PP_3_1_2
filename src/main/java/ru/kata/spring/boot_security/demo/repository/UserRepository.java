@@ -18,4 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT u FROM User u LEFT JOIN fetch u.roles WHERE u.id = ?1")
     User getById(Long id);
+
+    @Query(value = "SELECT count(u) FROM User u")
+    int UsersCount();
 }

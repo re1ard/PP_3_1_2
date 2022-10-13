@@ -33,6 +33,19 @@ public class UserServiceImpl implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public void check_first_start() {
+        if(roleRepository.RolesCount() == 0) {
+            roleRepository.save(new Role("ROLE_ADMIN"));
+            roleRepository.save(new Role("ROLE_USER"));
+        }
+
+        if(userRepository.UsersCount() == 0) {
+            Collection<Role> admin_roles = new ArrayList<>();
+            admin_roles.add(roleRepository.getById(1L));
+            userRepository.save(new User("admin",passwordEncoder.encode("admin"),"admin@service.com", admin_roles));
+        }
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
