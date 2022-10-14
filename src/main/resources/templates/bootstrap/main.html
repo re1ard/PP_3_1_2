@@ -69,7 +69,7 @@
                   <div class="col-3" th:utext="${user.getEmail()}">email</div>
                   <div class="col-1" th:utext="${user.getRolesInfo()}">role</div>
                   <div class="col-1">
-                    <a class="btn" th:href="@{/admin/updateuser/{id}(id = ${user.getId()})}">Update</a>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#EditUserMenu">Edit</button>
                   </div>
                   <div class="col-1">
                     <a class="btn" th:href="@{/admin/deleteuser/{id}(id = ${user.getId()})}">Delete</a>
@@ -114,6 +114,23 @@
           <div th:case="*">
             <p>puk</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="EditUserMenu" tabindex="-1" aria-labelledby="ModalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalHeader">Edit user data</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <p>puk</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-primary">Сохранить изменения</button>
         </div>
       </div>
     </div>
