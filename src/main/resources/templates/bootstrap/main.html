@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container text-left"><!--главны контейнер с едой-->
+    <div class="row">
+      <div class="col-4">
+        <p th:remove="tag" th:utext="${current_user.getEmail()}">email role</p>
+        <p th:remove="tag"> with roles: </p>
+        <p th:remove="tag" th:utext="${current_user.getRolesInfo()}">email role</p>
+      </div>
+      <div class="col-7"></div>
+      <div class="col-1"><a th:href="@{/logout}" class="btnExit">Выйти</a></div>
+    </div>
+    <div class="row">
+      <div class="col-2"><!-- меню слева -->
+        <div class="row text-left"><!-- кнопочки-->
+          <div th:switch="${admin_features}">
+            <a th:case="'yes'" href="/admin/">Admin</a>
+          </div>
+          <a th:href="@{/admin/showuser/{id}(id = ${current_user.getId()})}">User</a>
+        </div>
+      </div>
+      <div class="col-1"></div> <!-- условный паддинг-->
+      <div class="col"> <!-- основная панелька -->
+        <div th:switch="${container}">
+          <div th:case="'users_edit'">
+            <div class="row"> <!-- Надпись над меню -->
+              <h1>Admin panel</h1>
+            </div>
+            <div class="row"> <!-- кнопочки все пользователи или новый -->
+              <div class="col-1">
+                <a href="/admin?show=users">Users table</a>
+              </div>
+              <div class="col-1">
+                <a href="/admin?show=new_user">New User</a>
+              </div>
+              <div class="col"></div> <!--пустышка чтоб заполнить вместо справа-->
+            </div>
+          </div>
+          <div th:case="'show_user'">
+            <div class="row"> <!-- Надпись над меню -->
+              <h1>User information-page</h1>
+            </div>
+          </div>
+        </div>
+        <div th:switch="${show}">
+          <div th:case="'users'">
+            <div class="row text-left"> <!-- надпись все пользователи -->
+              <h2>All users</h2>
+            </div>
+            <div class="row"> <!-- отображение пользователей -->
+              <div class="col">
+                <div class="row">
+                  <div class="col-1">id</div>
+                  <div class="col-2">first name</div>
+                  <div class="col-2">last name</div>
+                  <div class="col-1">age</div>
+                  <div class="col-3">email</div>
+                  <div class="col-1">role</div>
+                  <div class="col-1">edit</div>
+                  <div class="col-1">delete</div>
+                </div>
+                <div class="row" th:each="user:${users}">
+                  <div class="col-1" th:utext="${user.getId()}">id</div>
+                  <div class="col-2" th:utext="${user.getFirst_name()}">first name</div>
+                  <div class="col-2" th:utext="${user.getLast_name()}">last name</div>
+                  <div class="col-1" th:utext="${user.getAge()}">age</div>
+                  <div class="col-3" th:utext="${user.getEmail()}">email</div>
+                  <div class="col-1" th:utext="${user.getRolesInfo()}">role</div>
+                  <div class="col-1">
+                    <a class="btn" th:href="@{/admin/updateuser/{id}(id = ${user.getId()})}">Update</a>
+                  </div>
+                  <div class="col-1">
+                    <a class="btn" th:href="@{/admin/deleteuser/{id}(id = ${user.getId()})}">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div th:case="'new_user'">
+            <div class="row text-left"> <!-- надпись все пользователи -->
+              <h2>New user</h2>
+            </div>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col-4 text-center">
+                <form th:method="POST" th:action="@{/admin/adduser}" th:object="${newUser}">
+                  <input type="hidden" name="id" th:field="*{id}">
+                  <p>Username</p>
+                  <input name="username" type="text" id="username" th:field="*{username}">
+                  <br><br>
+                  <p>Password</p>
+                  <input name="password" type="text" id="password" value="" th:field="*{password}"/>
+                  <br><br>
+                  <p>E-Mail</p>
+                  <input name="email" type="text" id="email" th:field="*{email}"/>
+                  <br><br>
+                  <p>Firstname</p>
+                  <input name="name" type="text" id="first_name" th:field="*{first_name}"/>
+                  <br><br>
+                  <p>Lastname</p>
+                  <input name="name" type="text" id="last_name" th:field="*{last_name}"/>
+                  <br><br>
+                  <p>Age</p>
+                  <input name="name" type="text" id="age" th:field="*{age}"/>
+                  <br><br>
+                  <input type="submit" value="Add new user"/>
+                </form>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+          <div th:case="*">
+            <p>puk</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

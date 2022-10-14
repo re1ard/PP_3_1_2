@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u LEFT JOIN fetch u.roles where u.username LIKE ?1")
     User findByUsername(String username);
 
-    @Query(value="SELECT u FROM User u LEFT JOIN fetch u.roles")
+    @Query(value="SELECT distinct u FROM User u LEFT JOIN fetch u.roles")
     List<User> findAll();
 
     @Query(value = "SELECT u FROM User u LEFT JOIN fetch u.roles WHERE u.id = ?1")

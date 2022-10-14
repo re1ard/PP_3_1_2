@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +19,30 @@ public class AdminController {
         this.userService = userService;
     }
     //показать всех пользователей
-    @GetMapping("/")
-    public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "show_users";
+    @GetMapping("")
+    public String getAllUsers(Model model,
+                              Principal principal,
+                              @RequestParam(name="show", required = false, defaultValue = "users") String show,
+                              @RequestParam(name="id", required = false, defaultValue = "0") long id
+    ) {
+        model.addAttribute("current_user", userService.findByUsername(principal.getName()));
+        model.addAttribute("admin_features", "yes");
+        if(show.matches("users")){
+            model.addAttribute("users", userService.getAllUsers());
+            model.addAttribute("show", "users");
+            model.addAttribute("container", "users_edit");
+        } else if (show.matches("new_user")) {
+            model.addAttribute("newUser", new User());
+            model.addAttribute("show", "new_user");
+            model.addAttribute("container", "users_edit");
+        } else if (id != 0){
+            User currentUser = userService.getUser(id);
+            model.addAttribute("userInfo", currentUser);
+            model.addAttribute("show", "users");
+            model.addAttribute("container", "show_user");
+        }
+        //return "show_users";
+        return "bootstrap/main";
     }
     //добавить пользователя через страницу редактирования
     @GetMapping("/adduser")

@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserDetailsService {
         if(userRepository.UsersCount() == 0) {
             Collection<Role> admin_roles = new ArrayList<>();
             admin_roles.add(roleRepository.getById(1L));
+            admin_roles.add(roleRepository.getById(2L));
             userRepository.save(new User("admin",passwordEncoder.encode("admin"),"admin@service.com", admin_roles, "Administrator", "None", (byte)0));
         }
     }
