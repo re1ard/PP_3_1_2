@@ -137,6 +137,10 @@ public class User implements UserDetails {
         }
     }
 
+    public boolean isAdmin(){
+        return roles.stream().map(Role::getName).anyMatch(e -> e.startsWith("ROLE_ADMIN"));
+    }
+
     public Collection<Role> getRoles() {
         return roles;
     }

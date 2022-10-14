@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container text-left"><!--главны контейнер с едой-->
+    <div class="row">
+      <div class="col-4">
+        <p th:remove="tag" th:utext="${current_user.getEmail()}">email role</p>
+        <p th:remove="tag"> with roles: </p>
+        <p th:remove="tag" th:utext="${current_user.getRolesInfo()}">email role</p>
+      </div>
+      <div class="col-7"></div>
+      <div class="col-1"><a th:href="@{/logout}" class="btnExit">Выйти</a></div>
+    </div>
+    <div class="row">
+      <div class="col-2"><!-- меню слева -->
+        <div class="row text-left"><!-- кнопочки-->
+          <div th:switch="${admin_features}">
+            <a th:case="'yes'" href="/admin/">Admin</a>
+          </div>
+          <a href="/user">User</a>
+        </div>
+      </div>
+      <div class="col-1"></div> <!-- условный паддинг-->
+      <div class="col"> <!-- основная панелька -->
+        <div class="row"> <!-- Надпись над меню -->
+          <h1>User information-page</h1>
+        </div>
+        <div class="row text-left"> <!-- надпись все пользователи -->
+          <h2>About user</h2>
+        </div>
+        <div class="row"> <!-- отображение пользователей -->
+          <div class="col">
+            <div class="row">
+              <div class="col-1">id</div>
+              <div class="col-3">first name</div>
+              <div class="col-3">last name</div>
+              <div class="col-1">age</div>
+              <div class="col-3">email</div>
+              <div class="col-1">role</div>
+            </div>
+            <div class="row">
+              <div class="col-1" th:utext="${current_user.getId()}">id</div>
+              <div class="col-3" th:utext="${current_user.getFirst_name()}">first name</div>
+              <div class="col-3" th:utext="${current_user.getLast_name()}">last name</div>
+              <div class="col-1" th:utext="${current_user.getAge()}">age</div>
+              <div class="col-3" th:utext="${current_user.getEmail()}">email</div>
+              <div class="col-1" th:utext="${current_user.getRolesInfo()}">role</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

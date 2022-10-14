@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public boolean isAdmin(User user) {
+        return (user.getRoles().contains(roleRepository.getById(1L)));
+    }
+
     public void check_first_start() {
         if(roleRepository.RolesCount() == 0) {
             roleRepository.save(new Role("ROLE_ADMIN"));
@@ -44,6 +48,10 @@ public class UserServiceImpl implements UserDetailsService {
             admin_roles.add(roleRepository.getById(1L));
             admin_roles.add(roleRepository.getById(2L));
             userRepository.save(new User("admin",passwordEncoder.encode("admin"),"admin@service.com", admin_roles, "Administrator", "None", (byte)0));
+
+            Collection<Role> user_roles = new ArrayList<>();
+            user_roles.add(roleRepository.getById(2L));
+            userRepository.save(new User("user",passwordEncoder.encode("user"),"user@service.com", user_roles, "User", "Name", (byte)69));
         }
     }
 

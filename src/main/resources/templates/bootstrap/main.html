@@ -23,7 +23,7 @@
           <div th:switch="${admin_features}">
             <a th:case="'yes'" href="/admin/">Admin</a>
           </div>
-          <a th:href="@{/admin/showuser/{id}(id = ${current_user.getId()})}">User</a>
+          <a href="/user">User</a>
         </div>
       </div>
       <div class="col-1"></div> <!-- условный паддинг-->
@@ -41,11 +41,6 @@
                 <a href="/admin?show=new_user">New User</a>
               </div>
               <div class="col"></div> <!--пустышка чтоб заполнить вместо справа-->
-            </div>
-          </div>
-          <div th:case="'show_user'">
-            <div class="row"> <!-- Надпись над меню -->
-              <h1>User information-page</h1>
             </div>
           </div>
         </div>

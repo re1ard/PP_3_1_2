@@ -21,7 +21,12 @@ public class UserController {
     @GetMapping("/user")
     public String updateUser(Model model, Principal principal) {
         User currentUser = userService.findByUsername(principal.getName());
-        model.addAttribute("userInfo", currentUser);
-        return "show_user";
+        model.addAttribute("current_user", currentUser);
+
+        if (currentUser.isAdmin()) {
+            model.addAttribute("admin_features", "yes");
+        }
+
+        return "bootstrap/user";
     }
 }
