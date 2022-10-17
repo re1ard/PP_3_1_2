@@ -7,27 +7,30 @@
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container text-left"><!--главны контейнер с едой-->
-    <div class="row">
-      <div class="col-4">
-        <p th:remove="tag" th:utext="${current_user.getEmail()}">email role</p>
-        <p th:remove="tag"> with roles: </p>
-        <p th:remove="tag" th:utext="${current_user.getRolesInfo()}">email role</p>
-      </div>
-      <div class="col-7"></div>
-      <div class="col-1"><a th:href="@{/logout}" class="btnExit">Выйти</a></div>
+  <div id="header" class="d-flex bg-dark p-0">
+    <div class="p-2 w-100 text-white">
+      <a><span class="p-2 align-middle" th:text="${current_user.getEmail()}"></span></a>
+      <span class="align-middle">with roles:</span>
+      <span class="align-middle" th:block th:text="${current_user.getRolesInfo()}">
+      </span>
     </div>
+    <a></a>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="btn btn-dark text-secondary">Logout</button>
+    </form>
+    </a>
+  </div>
+  <div class="container-fluid text-left"><!--главны контейнер с едой-->
     <div class="row">
       <div class="col-2"><!-- меню слева -->
-        <div class="row text-left"><!-- кнопочки-->
+        <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical"><!-- кнопочки-->
           <div th:switch="${admin_features}">
-            <a th:case="'yes'" href="/admin/">Admin</a>
+            <a th:case="'yes'" class="nav-link" href="/admin" aria-controls="v-pills-home" aria-selected="true">Admin</a>
           </div>
-          <a href="/user">User</a>
+          <a class="nav-link" href="/user" aria-controls="v-pills-profile" aria-selected="false">User</a>
         </div>
       </div>
-      <div class="col-1"></div> <!-- условный паддинг-->
-      <div class="col"> <!-- основная панелька -->
+      <div class="col p-1"> <!-- основная панелька -->
         <div th:switch="${container}">
           <div th:case="'users_edit'">
             <div class="row"> <!-- Надпись над меню -->
