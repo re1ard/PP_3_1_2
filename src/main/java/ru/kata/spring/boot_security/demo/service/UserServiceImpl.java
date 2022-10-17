@@ -58,6 +58,13 @@ public class UserServiceImpl implements UserDetailsService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Transactional
+    public void update(User user, Long id){
+        user.setId(id);
+        save(user);
+    }
+
     @Transactional
     public void save(User user) {
         //Role user fix
@@ -110,5 +117,9 @@ public class UserServiceImpl implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    }
+
+    public Collection<Role> GetRoles() {
+        return roleRepository.Roles();
     }
 }

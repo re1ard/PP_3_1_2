@@ -9,10 +9,7 @@
 <body>
   <div id="header" class="d-flex bg-dark p-0">
     <div class="p-2 w-100 text-white">
-      <a><span class="p-2 align-middle" th:text="${current_user.getEmail()}"></span></a>
-      <span class="align-middle">with roles:</span>
-      <span class="align-middle" th:block th:text="${current_user.getRolesInfo()}">
-        </span>
+      <a><span class="p-2 align-middle" th:text="${current_user.getEmail()} + ' with roles: ' + ${current_user.getRolesInfo()}"></span></a>
     </div>
     <a></a>
     <form th:action="@{/logout}" method="post">
@@ -35,7 +32,7 @@
           <h1>User information-page</h1>
         </div>
         <div class="row text-left"> <!-- надпись все пользователи -->
-          <h2>About user</h2>
+          <h5>About user</h5>
         </div>
         <div class="row"> <!-- отображение пользователей -->
           <div class="col">

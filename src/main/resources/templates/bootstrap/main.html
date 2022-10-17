@@ -9,9 +9,7 @@
 <body>
   <div id="header" class="d-flex bg-dark p-0">
     <div class="p-2 w-100 text-white">
-      <a><span class="p-2 align-middle" th:text="${current_user.getEmail()}"></span></a>
-      <span class="align-middle">with roles:</span>
-      <span class="align-middle" th:block th:text="${current_user.getRolesInfo()}">
+      <a><span class="p-2 align-middle" th:text="${current_user.getEmail()} + ' with roles: ' + ${current_user.getRolesInfo()}"></span></a>
       </span>
     </div>
     <a></a>
@@ -50,7 +48,7 @@
         <div th:switch="${show}">
           <div th:case="'users'">
             <div class="row text-left"> <!-- надпись все пользователи -->
-              <h2>All users</h2>
+              <h5>All users</h5>
             </div>
             <div class="row"> <!-- отображение пользователей -->
               <div class="col">
@@ -71,11 +69,82 @@
                   <div class="col-1" th:utext="${user.getAge()}">age</div>
                   <div class="col-3" th:utext="${user.getEmail()}">email</div>
                   <div class="col-1" th:utext="${user.getRolesInfo()}">role</div>
+
                   <div class="col-1">
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#EditUserMenu">Edit</button>
+                    <button type="button" class="btn" data-bs-toggle="modal" th:data-bs-target="${'#editModal'+user.id}">Edit</button>
                   </div>
+
                   <div class="col-1">
                     <a class="btn" th:href="@{/admin/deleteuser/{id}(id = ${user.getId()})}">Delete</a>
+                  </div>
+
+                  <div class="modal fade" th:id="${'editModal' + user.getId()}" aria-labelledby="EditUserMenu" aria-hidden="true">
+                    <div class="modal-dialog" modal-dialog-centered>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="editModalLabel">Edit user</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/admin/update_user/{id}(id=${user.getId()})}"
+                              th:object="${user}" th:method="POST">
+                          <div class="modal-body col-md text-center">
+                            <label for="idEdit"><b>ID</b></label>
+                            <input th:name="id" th:type="text"
+                                   class="form-control" id="idEdit"
+                                   th:value="*{getId()}" readonly/>
+                            <input th:name="username" th:type="text"
+                                   class="form-control" id="username"
+                                   th:value="*{username}" hidden/>
+                            <br>
+                            <label for="first_name"><b>First name</b></label>
+                            <input th:name="first_name" th:type="text"
+                                   class="form-control" id="first_name"
+                                   th:value="*{first_name}"/>
+                            <br>
+                            <label for="last_name"><b>Last name</b></label>
+                            <input th:name="last_name" th:type="text"
+                                   class="form-control" id="last_name"
+                                   th:value="*{last_name}"/>
+                            <br>
+                            <label for="age"><b>Age</b></label>
+                            <input th:name="age" th:type="number"
+                                   class="form-control" id="age"
+                                   th:value="*{age}"/>
+                            <br>
+                            <label for="password"><b>Password</b></label>
+                            <input th:name="password" type="text"
+                                   class="form-control" id="password"/>
+                            <br>
+                            <label for="email"><b>Email</b></label>
+                            <input th:name="email" type="text"
+                                   class="form-control" id="email" th:value="*{email}"/>
+                            <br>
+                            <label for="roles"><b>Role</b></label>
+                            <select multiple
+                                    class="form-control form-control-sm"
+                                    id="roles" name="nameRole" size="2"
+                                    required>
+                              <option
+                                      th:each="role: ${user.getRoles()}"
+                                      th:value="${role.name}"
+                                      th:selected="${user.roles.contains(role)}">
+                                <th:block th:text="${role.name}">
+                                </th:block>
+                              </option>
+                            </select>
+                            <br><br>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                              Edit
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -117,23 +186,6 @@
           <div th:case="*">
             <p>puk</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="EditUserMenu" tabindex="-1" aria-labelledby="ModalHeader" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalHeader">Edit user data</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
-        <div class="modal-body">
-          <p>puk</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-          <button type="button" class="btn btn-primary">Сохранить изменения</button>
         </div>
       </div>
     </div>

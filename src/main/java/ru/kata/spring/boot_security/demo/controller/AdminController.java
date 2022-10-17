@@ -27,6 +27,8 @@ public class AdminController {
     ) {
         model.addAttribute("current_user", userService.findByUsername(principal.getName()));
         model.addAttribute("admin_features", "yes");
+        //model.addAttribute("updateUser", new User());
+        model.addAttribute("roles", userService.GetRoles());
         if(show.matches("users")){
             model.addAttribute("users", userService.getAllUsers());
             model.addAttribute("show", "users");
@@ -85,5 +87,11 @@ public class AdminController {
         currentUser.setPassword("");
         model.addAttribute("newUser", currentUser);
         return "editor_user";
+    }
+
+    @PostMapping("/update_user/{id}")
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
+        userService.update(user, id);
+        return "redirect:/admin/";
     }
 }
