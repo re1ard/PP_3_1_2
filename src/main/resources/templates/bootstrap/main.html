@@ -23,7 +23,7 @@
       <div class="col-2"><!-- меню слева -->
         <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical"><!-- кнопочки-->
           <div th:switch="${admin_features}">
-            <a th:case="'yes'" class="nav-link" href="/admin" aria-controls="v-pills-home" aria-selected="true">Admin</a>
+            <a th:case="'yes'" class="nav-link active" href="/admin" aria-controls="v-pills-home" aria-selected="true">Admin</a>
           </div>
           <a class="nav-link" href="/user" aria-controls="v-pills-profile" aria-selected="false">User</a>
         </div>
