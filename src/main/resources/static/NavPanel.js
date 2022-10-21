@@ -12,9 +12,9 @@ async function NavPanel() {
             let nav_user;
 
             if (document.URL.includes("/admin")) {
-                nav_admin = `<a class="nav-link active" href="/admin" aria-controls="v-pills-home" aria-selected="false">Admin</a>`;
+                nav_admin = `<a class="nav-link active" href="/admin" aria-controls="v-pills-home" aria-selected="false" id="admin_panel">Admin</a>`;
             } else {
-                nav_admin = `<a class="nav-link" href="/admin" aria-controls="v-pills-home" aria-selected="false">Admin</a>`;
+                nav_admin = `<a class="nav-link" href="/admin" aria-controls="v-pills-home" aria-selected="false" id="admin_panel">Admin</a>`;
             }
 
             if (document.URL.includes("/user")) {
