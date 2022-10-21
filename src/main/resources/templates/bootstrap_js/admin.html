@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Admin panel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </head>
@@ -57,7 +57,6 @@
                       </tr>
                       </thead>
                       <tbody id="AllUsers">
-
                       </tbody>
                     </table>
                   </div>
@@ -71,6 +70,118 @@
   </div>
 </div>
 
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="formEditUser">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit user</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <div class="form-group required">
+            <div class="controls">
+              <p>
+                <label for="idEditUser"><strong>ID</strong>
+                  <input class="form-control" type="number" name="id" id="idEditUser" disabled/>
+                </label>
+              </p>
+              <p>
+                <input class="form-control" type="text" name="username" id="usernameEditUser" hidden/>
+              </p>
+              <p>
+                <label for="firstNameEditUser"><strong>First name</strong>
+                  <input class="form-control" type="text" name="firstName" id="firstNameEditUser"/>
+                </label>
+              </p>
+              <p>
+                <label for="lastNameEditUser"><strong>Last name</strong>
+                  <input class="form-control" type="text" name="lastName" id="lastNameEditUser"/>
+                </label>
+              </p>
+              <p>
+                <label for="ageEditUser"><strong>Age</strong>
+                  <input class="form-control" type="text" name="age" id="ageEditUser"/>
+                </label>
+              </p>
+              <p>
+                <label for="emailEditUser"><strong>Email</strong>
+                  <input class="form-control" type="email" name="email" id="emailEditUser"/>
+                </label>
+              </p>
+              <p>
+                <label for="passwordEditUser"><strong>Password</strong>
+                  <input class="form-control" type="password" name="password" id="passwordEditUser"/>
+                </label>
+              </p>
+              <label class="container-fluid col-6" for="rolesEditUser"><strong>Role</strong>
+                <select class="form-control" id="rolesEditUser" name="roles" multiple size="2">
+                </select>
+              </label>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="editFormCloseButton" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="formDeleteUser">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete user</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <div class="form-group required">
+            <div class="controls">
+              <p>
+                <label for="idDeleteUser"><strong>ID</strong>
+                  <input class="form-control" type="number" name="id" id="idDeleteUser" disabled>
+                </label>
+              </p>
+              <p>
+                <label for="firstNameDeleteUser"><strong>First name</strong>
+                  <input class="form-control" type="text" name="firstName" id="firstNameDeleteUser" disabled>
+                </label>
+              </p>
+              <p>
+                <label for="lastNameDeleteUser"><strong>Last name</strong>
+                  <input class="form-control" type="text" name="lastName" id="lastNameDeleteUser" disabled>
+                </label>
+              </p>
+              <p>
+                <label for="ageDeleteUser"><strong>Age</strong>
+                  <input class="form-control" type="number" name="age" id="ageDeleteUser" disabled>
+                </label>
+              </p>
+              <p>
+                <label for="emailDeleteUser"><strong>Email</strong>
+                  <input class="form-control" type="email" name="email" id="emailDeleteUser" disabled>
+                </label>
+              </p>
+              <label class="container-fluid col-6" for="rolesDeleteUser"><strong>Role</strong>
+                <select class="form-control" id="rolesDeleteUser" name="roles" multiple size="2" disabled>
+                </select>
+              </label>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="deleteFormCloseButton" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -80,8 +191,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
         integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
         crossorigin="anonymous"></script>
+
 <script type="text/javascript" src="/NavPanel.js"></script>
 <script type="text/javascript" src="/FillUsers.js"></script>
+<script type="text/javascript" src="/GetUser.js"></script>
+<script type="text/javascript" src="/ModalDelete.js"></script>
+<script type="text/javascript" src="/ModalEditor.js"></script>
 
 </body>
 </html>

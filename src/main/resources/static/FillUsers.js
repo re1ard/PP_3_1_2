@@ -3,6 +3,7 @@ $(async function() {
 });
 async function FillUsers() {
    const table = $('#AllUsers');
+   table.empty();
    fetch("http://localhost:8080/api/users")
        .then(res => res.json())
        .then(data => {

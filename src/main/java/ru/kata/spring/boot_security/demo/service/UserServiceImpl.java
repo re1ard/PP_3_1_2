@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserDetailsService {
             } else {
                 user.setPassword(userRepository.getById(user.getId()).getPassword());
             }
-            user.setRoles(userRepository.getById(user.getId()).getRoles());
+            //user.setRoles(userRepository.getById(user.getId()).getRoles());
         }
 
         userRepository.save(user);

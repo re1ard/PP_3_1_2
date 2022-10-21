@@ -39,11 +39,13 @@ public class RestController {
 
     @PatchMapping("/users/{id}")
     public ResponseEntity EditUser(@PathVariable long id, @RequestBody User user){
+        System.out.println(user);
         userService.update(user, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
+    @PostMapping("/users/{id}/delete")
     public ResponseEntity DeleteUser(@PathVariable long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
