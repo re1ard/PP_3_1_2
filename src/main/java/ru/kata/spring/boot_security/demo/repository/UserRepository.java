@@ -13,6 +13,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u LEFT JOIN fetch u.roles where u.username LIKE ?1")
     User findByUsername(String username);
 
+    @Query(value = "SELECT u FROM User u LEFT JOIN fetch u.roles where u.email LIKE ?1")
+    User findByEMail(String email);
+
     @Query(value="SELECT distinct u FROM User u LEFT JOIN fetch u.roles")
     List<User> findAll();
 

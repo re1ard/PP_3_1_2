@@ -103,10 +103,11 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Transactional
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        //User user = findByUsername(username);
+        User user = userRepository.findByEMail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User %s not found", username));
+            throw new UsernameNotFoundException(String.format("E-Mail %s not found", email));
         }
         //не получается вернуть  просто user, возникает ошибка "User account is locked"
         //upd 2, не получается, теперь просто ничего не происходит после логина
