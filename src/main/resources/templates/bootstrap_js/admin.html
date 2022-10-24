@@ -24,84 +24,80 @@
       </div>
     </div>
     <div class="col-10 px-0 bg-light">
-      <div class="container-fluid p-4">
-        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="editor">
-          <h1>Admin panel</h1>
-          <div>
-            <div class="tab-content">
-              <ul class="nav nav-tabs">
-                <a class="nav-link" data-toggle="tab" href="#users_table" id="users_tab">Users Table</a>
-                <a class="nav-link" data-toggle="tab" href="#new_user" id="add_user">New user</a>
-              </ul>
+      <div class="tab-content p-4">
+        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="editor" id="admin_panel">
+          <h2>Admin panel</h2>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#users_table" id="users_tab">Users Table</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#new_user" id="add_user">New user</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active border" id="users_table" role="tabpanel">
               <div class="card">
-                <div class="card-header">
-                  <div class="m-1">
-                    <h5>All users</h5>
-                  </div>
+                <div class="card-header"><h5>All users</h5></div>
+                <div class="card-body text-center">
+                  <table class="table table-striped border-top">
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>First name</th>
+                      <th>Last name</th>
+                      <th>Age</th>
+                      <th>E-Mail</th>
+                      <th>Role</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="AllUsers">
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div class="tab-content">
-                <div class="tab-pane fade show active border" id="users_table" role="tabpanel">
-                  <div class="bg-white p-3">
-                    <table class="table table-striped border-top">
-                      <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Age</th>
-                        <th>E-Mail</th>
-                        <th>Role</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                      </tr>
-                      </thead>
-                      <tbody id="AllUsers">
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="new_user">
-                  <div class="form-group">
-                    <div class="control-group required">
-                      <div class="card">
-                        <h5 class="card-header">Add new user</h5>
-                        <div class="card-body text-center">
-                          <div class="form justify-content-center mx-auto col-5">
-                            <form id="formNewUser" name="formNewUser">
-                              <p>
-                                <label class="container-fluid" for="newUserFirstName"><strong>First name</strong>
-                                  <input class="form-control" type="text" name="firstName" id="newUserFirstName" required/>
-                                </label>
-                              </p>
-                              <p>
-                                <label class="container-fluid" for="newUserLastName"><strong>Last name</strong>
-                                  <input class="form-control" type="text" name="lastName" id="newUserLastName" required/>
-                                </label>
-                              </p>
-                              <p>
-                                <label class="container-fluid" for="newUserAge"><strong>Age</strong>
-                                  <input class="form-control" type="number" name="age" id="newUserAge" required/>
-                                </label>
-                              </p>
-                              <p>
-                                <label class="container-fluid" for="newUserEmail"><strong>Email</strong>
-                                  <input class="form-control" type="email" name="email" id="newUserEmail" required/>
-                                </label>
-                              </p>
-                              <p>
-                                <label class="container-fluid" for="newUserPassword"><strong>Password</strong>
-                                  <input class="form-control" type="password" name="password" required id="newUserPassword"/>
-                                </label>
-                              </p>
-                              <label class="container-fluid"
-                                     for="newUserRoles"><strong>Role</strong>
-                                <select id="newUserRoles" class="form-control" name="roles" multiple size="2"></select>
-                              </label>
-                              <button type="submit" id="newUserButton" class="btn btn-success">Add new user</button>
-                            </form>
-                          </div>
-                        </div>
+            </div>
+            <div class="tab-pane fade" id="new_user">
+              <div class="form-group">
+                <div class="control-group required">
+                  <div class="card">
+                    <h5 class="card-header">Add new user</h5>
+                    <div class="card-body text-center">
+                      <div class="form justify-content-center mx-auto col-5">
+                        <form id="formNewUser" name="formNewUser">
+                          <p>
+                            <label class="container-fluid" for="newUserFirstName"><strong>First name</strong>
+                              <input class="form-control" type="text" name="firstName" id="newUserFirstName" required/>
+                            </label>
+                          </p>
+                          <p>
+                            <label class="container-fluid" for="newUserLastName"><strong>Last name</strong>
+                              <input class="form-control" type="text" name="lastName" id="newUserLastName" required/>
+                            </label>
+                          </p>
+                          <p>
+                            <label class="container-fluid" for="newUserAge"><strong>Age</strong>
+                              <input class="form-control" type="number" name="age" id="newUserAge" required/>
+                            </label>
+                          </p>
+                          <p>
+                            <label class="container-fluid" for="newUserEmail"><strong>Email</strong>
+                              <input class="form-control" type="email" name="email" id="newUserEmail" required/>
+                            </label>
+                          </p>
+                          <p>
+                            <label class="container-fluid" for="newUserPassword"><strong>Password</strong>
+                              <input class="form-control" type="password" name="password" required id="newUserPassword"/>
+                            </label>
+                          </p>
+                          <label class="container-fluid"
+                                 for="newUserRoles"><strong>Role</strong>
+                            <select id="newUserRoles" class="form-control" name="roles" multiple size="2"></select>
+                          </label>
+                          <button type="submit" id="newUserButton" class="btn btn-success">Add new user</button>
+                        </form>
                       </div>
                     </div>
                   </div>
