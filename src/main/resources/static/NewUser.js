@@ -44,7 +44,8 @@ async function newUser() {
         }).then(() => {
             form.reset();
             FillUsers();
-            $('#admin_panel').click();
+            //$('#admin_panel').click();
+            window.location.replace("http://localhost:8080/admin");
         })
     }
 }
