@@ -15,9 +15,6 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "username")
-    private String username;
-
     @Column(name = "password")
     private String password;
 
@@ -45,15 +42,14 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return String.format("UID: %s | Username: %s | Password: %s | E-Mail: %s",
+        return String.format("UID: %s | E-Mail: %s | Password: %s | E-Mail: %s",
                 id,
-                username,
+                email,
                 password,
                 email);
     }
 
-    public User(String username, String password, String email, Collection<Role> roles) {
-        this.username = username;
+    public User(String email, String password, Collection<Role> roles) {
         this.password = password;
         this.email = email;
         this.roles = roles;
@@ -62,8 +58,7 @@ public class User implements UserDetails {
         this.last_name = "LastName";
     }
 
-    public User(String username, String password, String email, Collection<Role> roles, String first_name, String last_name, byte age){
-        this.username = username;
+    public User(String email, String password, Collection<Role> roles, String first_name, String last_name, byte age){
         this.password = password;
         this.email = email;
         this.roles = roles;
@@ -78,10 +73,6 @@ public class User implements UserDetails {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     @Override
@@ -104,10 +95,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -115,6 +102,11 @@ public class User implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
     }
 
     public void setPassword(String password) {

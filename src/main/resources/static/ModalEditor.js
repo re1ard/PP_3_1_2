@@ -17,7 +17,6 @@ async function showEditModal(id) {
     form.lastName.value = user.last_name;
     form.age.value = user.age;
     form.email.value = user.email;
-    form.username.value = user.username;
     form.password.value = '';
 
     await fetch("http://localhost:8080/api/roles")
@@ -64,7 +63,6 @@ function updateUser() {
                 last_name: editForm.lastName.value,
                 age: editForm.age.value,
                 email: editForm.email.value,
-                username: editForm.username.value,
                 password: editForm.password.value,
                 roles: editUserRoles
             })

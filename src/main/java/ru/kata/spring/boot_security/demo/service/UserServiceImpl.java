@@ -47,11 +47,11 @@ public class UserServiceImpl implements UserDetailsService {
             Collection<Role> admin_roles = new ArrayList<>();
             admin_roles.add(roleRepository.getById(1L));
             admin_roles.add(roleRepository.getById(2L));
-            userRepository.save(new User("admin",passwordEncoder.encode("admin"),"admin@service.com", admin_roles, "Administrator", "None", (byte)0));
+            userRepository.save(new User("admin@service.com", passwordEncoder.encode("admin"),admin_roles, "Administrator", "None", (byte)0));
 
             Collection<Role> user_roles = new ArrayList<>();
             user_roles.add(roleRepository.getById(2L));
-            userRepository.save(new User("user",passwordEncoder.encode("user"),"user@service.com", user_roles, "User", "Name", (byte)69));
+            userRepository.save(new User("user@service.com", passwordEncoder.encode("user"),user_roles, "User", "Name", (byte)69));
         }
     }
 
@@ -97,10 +97,9 @@ public class UserServiceImpl implements UserDetailsService {
         return userRepository.getById(id);
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByEMail(String email) {
+        return userRepository.findByEMail(email);
     }
-
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -111,7 +110,7 @@ public class UserServiceImpl implements UserDetailsService {
         }
         //не получается вернуть  просто user, возникает ошибка "User account is locked"
         //upd 2, не получается, теперь просто ничего не происходит после логина
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
                user.getPassword(), user.getRoles());
         //return user;
     }

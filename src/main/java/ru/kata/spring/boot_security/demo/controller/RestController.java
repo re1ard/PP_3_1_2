@@ -53,7 +53,7 @@ public class RestController {
 
     @GetMapping("/user")
     public ResponseEntity<User> CurrentUser(Principal user) {
-        return new ResponseEntity<>(userService.findByUsername(user.getName()), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findByEMail(user.getName()), HttpStatus.OK);
     }
 
     @GetMapping("/roles")
